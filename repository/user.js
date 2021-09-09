@@ -23,8 +23,13 @@ function getUserByEmail(email) {
   return model.user.findOne({ email })
 } 
 
+function getUserById(id) {
+  return model.user.findOne({ id })
+} 
+
 module.exports = {
   getUserByUsername,
   getUserByEmail,
+  getUserById,
   save,
 }

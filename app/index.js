@@ -65,6 +65,12 @@ async function start() {
     routes.mahasiswa
   )
 
+  // Alumni Base Routes
+  app.use(
+    '/alumni',
+    routes.alumni
+  )
+
   app.listen(config.app.port || 5000, ()=> {
     console.log('Application Running on Port', config.app.port)
   })

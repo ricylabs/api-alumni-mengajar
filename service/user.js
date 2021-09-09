@@ -10,6 +10,10 @@ async function getUserByEmail(email) {
   return user
 }
 
+async function getUserById(id) {
+  let user = await repository.user.getUserById(id)
+  return user
+}
 
 async function create(data) {
   let newData = await repository.user.save(data)
@@ -20,4 +24,5 @@ module.exports = {
   create,
   getUserByUsername,
   getUserByEmail,
+  getUserById,
 }

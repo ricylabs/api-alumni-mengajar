@@ -2,7 +2,7 @@ const config = require('../config')
 
 const account = require('./account')
 const mahasiswa = require('./mahasiswa')
-
+const alumni = require('./alumni')
 
 // Root 
 const router = require('express').Router()
@@ -23,5 +23,6 @@ const index = router
 module.exports = {
   index,
   account,
-  mahasiswa
+  mahasiswa,
+  alumni,
 }
