@@ -45,6 +45,10 @@ const schema = new mongoose.Schema({
     type: String,
     require: true
   },
+  visited: {
+    type: Number,
+    require: true,
+  },
   createdAt: {
     type: Date,
     require: true
