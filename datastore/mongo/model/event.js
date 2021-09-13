@@ -1,61 +1,75 @@
 const mongoose = require('mongoose')
+const moment = require('moment-timezone')
+const luxon = require('luxon')
+
+const dateIndonesia = moment.tz(luxon.DateTime.now().toString(), "Asia/Jakarta")
 
 const schema = new mongoose.Schema({
   id: {
     type: String,
-    require: true
+    required: true
   },
   title: {
     type: String,
-    require: true,
+    required: true,
   },
-  date: {
-    type: Date,
-    require: true,
-  },
-  start: {
-    type: Date,
-    require: true,
-  },
-  end: {
-    type: Date,
-    require: true,
+  dateTime: {
+    date: {
+      type: String,
+      required: true
+    },
+    day: {
+      type: String,
+      required: true
+    },
+    month: {
+      type: String,
+      required: true,
+    },
+    start: {
+      type: String,
+      required: true
+    },
+    end: {
+      type: String,
+      required: true,
+    },
   },
   capacity: {
     type: Number,
-    require: true,
+    required: true,
   },
   enrolled: {
     type: Number,
-    require: true,
+    required: true,
   },
   price: {
     type: Number,
-    require: true,
+    required: true,
   },
   link: {
     type: String,
-    require: true,
+    required: true,
   },
-  imagesId: {
+  imageId: {
     type: String,
-    require: true,
+    required: true,
   },
-  alumniId: {
+  userId: {
     type: String,
-    require: true
+    required: true
   },
   visited: {
     type: Number,
-    require: true,
+    required: true,
   },
   createdAt: {
     type: Date,
-    require: true
+    required: true,
   },
   updatedAt: {
     type: Date,
-    require: true
+    required: true
   }
 })
 

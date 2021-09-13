@@ -9,7 +9,7 @@ const router = express.Router()
 router.post(
   '/register',
   [
-    middleware.validation.schema(schema.register),
+    middleware.validation.schema(schema.account.register),
     middleware.uniqueData.username,
     middleware.uniqueData.email
   ],
@@ -18,6 +18,7 @@ router.post(
 
 router.post(
   '/login',
+  middleware.validation.schema(schema.account.login),
   handler.account.login
 )
 

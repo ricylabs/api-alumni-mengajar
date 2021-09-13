@@ -12,7 +12,6 @@ const app = express()
 const upload = multer()
 
 const routes = require('../routes')
-const { route } = require("../routes/account")
 
 async function start() {
   await mongoDB.createClient().then(()=>{
@@ -34,9 +33,6 @@ async function start() {
   app.use(express.json('*/*')); 
   // for parsing application/xwww-form-urlencoded
   app.use(express.urlencoded({ extended: true })); 
-  // for parsing multipart/form-data
-  app.use(upload.array()); 
-  app.use(express.static('public'));
 
   // Cors Configuration
   app.use(cors({origin: config.cors.origin}))
