@@ -6,9 +6,9 @@ module.exports = mahasiswa = async (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1]
   const id = jwt.decode(token).id
   const user = await service.user.getUserById(id)
-  const authorizationType = await user.authorizationType
+  const role = await user.role
 
-  if (authorizationType !== 'mahasiswa') return res.status(403).json({ message: 'Unauthorized, only for Mahasiswa!'})
+  if (role !== 'mahasiswa') return res.status(403).json({ message: 'Unauthorized, only for Mahasiswa!'})
   
   next()
 }

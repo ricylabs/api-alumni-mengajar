@@ -13,7 +13,7 @@ module.exports = register = joi.object({
     jurusan: joi.string().required(),
     nim: joi.number().required(),
     angkatan: joi.number().required(),
-    authorizationType: joi.string().valid('alumni', 'mahasiswa', 'admin').required()
+    role: joi.string().valid('alumni', 'mahasiswa', 'admin').required()
   }).required(),
   query: joi.object().unknown(),
 })

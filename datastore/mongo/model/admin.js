@@ -25,7 +25,7 @@ const schema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  authorizationType: {
+  role: {
     type: String,
     require: true
   },

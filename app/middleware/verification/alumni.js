@@ -6,8 +6,8 @@ module.exports = alumni = async (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1]
   const id = jwt.decode(token).id
   const user = await service.user.getUserById(id)
-  const authorizationType = await user.authorizationType
+  const role = await user.role
 
-  if (authorizationType !== 'alumni') return res.status(403).json({ message: 'Unauthorized, only for Alumni!'})
+  if (role !== 'alumni') return res.status(403).json({ message: 'Unauthorized, only for Alumni!'})
   next()
 }

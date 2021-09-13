@@ -51,7 +51,7 @@ module.exports = {
         maximum: luxon.DateTime.now().year,
         example:2020
       },
-      authorizationType: {
+      role: {
         type:'string',
         enum: [
           'mahasiswa',
@@ -70,7 +70,7 @@ module.exports = {
       'perguruanTinggi',
       'jurusan',
       'angkatan',
-      'authorizationType'
+      'role'
     ]
   }
 }

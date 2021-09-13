@@ -11,7 +11,7 @@ module.exports = async function dashboard(req, res) {
     username: user.username,
     firstName: user.firstName,
     lastName: user.lastName,
-    authorizationType: user.authorizationType,
+    role: user.role,
   }
 
   return res.status(200).json({
