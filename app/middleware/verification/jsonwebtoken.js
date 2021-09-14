@@ -13,6 +13,10 @@ module.exports = jsonwebtoken = (req, res, next) => {
     req.user = verified
     next()
   } catch(error) {
-    res.status(400).json({message: error})
+    res.status(400).json({
+      statusCode: 400,
+      status: 'Bad Request',
+      message: error
+    })
   }
 }

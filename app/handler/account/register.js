@@ -8,8 +8,10 @@ module.exports = async function register(req, res) {
 
   let newUser = await service.user.create(userData)
 
-  return res.status(200).json({
-    data: {
+  return res.status(201).json({
+    statusCode: 201,
+    status: 'Created',
+    result: {
       userId: newUser.id,
     },
     message: "Account Successfully Created"

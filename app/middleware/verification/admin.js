@@ -8,7 +8,11 @@ module.exports = admin = async (req, res, next) => {
   const user = await service.user.getUserById(id)
   const role = await user.role
 
-  if (role !== 'admin') return res.status(403).json({ message: 'Unauthorized, only for Admin!'})
+  if (role !== 'admin') return res.status(403).json({
+    statusCode: 403,
+    status: 'Forbidden',
+    message: 'Please login as Admin'
+  })
   
   next()
 }

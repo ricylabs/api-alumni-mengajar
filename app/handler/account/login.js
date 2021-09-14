@@ -15,8 +15,17 @@ module.exports = async function login(req, res) {
 
   if (user && bcrypt.compareSync(req.body.password, password)) {
     const token = jwt.sign({ id }, config.jwt.secretToken, { expiresIn: '15m' })
-    return res.status(200).json({ token })
+    return res.status(200).json({
+      statusCode: 200,
+      status: 'OK',
+      token,
+      message: 'Successfully login to the server'
+      })
   } else {
-    return res.status(401).json({message: "Invalid Password please try again!"})
+    return res.status(401).json({
+      statusCode: 401,
+      status: 'Unauthorized',
+      message: "Invalid Password please try again!"
+    })
   }
 }

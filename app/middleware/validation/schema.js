@@ -6,7 +6,11 @@ module.exports = function schema(schema) {
       query: req.query,
     })
 
-    if (error) return res.status(400).json({ errors: error.details })
+    if (error) return res.status(400).json({ 
+      statusCode: 400,
+      status: 'Bad Request',
+      errors: error.details
+    })
     else {
       next()
     }

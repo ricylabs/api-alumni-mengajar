@@ -8,7 +8,11 @@ module.exports = mahasiswa = async (req, res, next) => {
   const user = await service.user.getUserById(id)
   const role = await user.role
 
-  if (role !== 'mahasiswa') return res.status(403).json({ message: 'Unauthorized, only for Mahasiswa!'})
+  if (role !== 'mahasiswa') return res.status(403).json({
+    statusCode: 403,
+    status: 'Forbidden', 
+    message: 'Please login as Mahasiswa'
+  })
   
   next()
 }
