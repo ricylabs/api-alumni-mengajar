@@ -9,7 +9,6 @@ module.exports = _event = joi.object({
     start: joi.string().pattern(new RegExp('([0-1]?[0-9]|2[0-3]):[0-5][0-9]')).required(),
     end: joi.string().pattern(new RegExp('([0-1]?[0-9]|2[0-3]):[0-5][0-9]')).required(),
     capacity: joi.number().required(),
-    enrolled: joi.number().required(),
     price: joi.number().required(),
     link: joi.string().required(),
   }),

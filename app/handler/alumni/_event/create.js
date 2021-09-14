@@ -22,6 +22,7 @@ module.exports = async function create(req, res) {
     start: req.body.start,
     end: req.body.end,
   }
+  req.body.enrolled = 0
   req.body.date = dateTime
   delete req.body.start
   delete req.body.end 

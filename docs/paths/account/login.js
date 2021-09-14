@@ -33,6 +33,30 @@ module.exports = {
           }
         }
       },
-    }
+      '400' : {
+        description: 'Failed to login, please try again!',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties:{
+                statusCode:{
+                  type: 'integer',
+                  example: 401,
+                },
+                status: {
+                  type: 'string',
+                  example: 'Unauthorized',
+                },
+                message:{
+                  type: 'string',
+                  example: 'Invalid Password please try again!'
+                },
+              }
+            }
+          }
+        }
+      }
+    },
   }
 }

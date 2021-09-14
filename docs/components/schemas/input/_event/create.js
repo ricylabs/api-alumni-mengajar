@@ -1,4 +1,3 @@
-const luxon = require('luxon')
 const moment = require('moment-timezone')
 
 const tomorrow = moment.tz(moment().add(7,'days'), 'Asia/Jakarta')

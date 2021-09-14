@@ -2,6 +2,11 @@ module.exports = {
   post: {
     tags: ['Event'],
     summary: 'Create event for alumni, upload to MongoDB',
+    security: [
+      {
+        bearerAuth: []
+      }
+    ],
     parameters:[
       {
         in: 'path',
@@ -19,7 +24,7 @@ module.exports = {
     requestBody: {
       requred: true,
       content: {
-        'application/x-www-form-urlencoded': {
+        'multipart/form-data': {
           schema: {
             $ref: '#/components/schemas/UploadEventImage'
           }

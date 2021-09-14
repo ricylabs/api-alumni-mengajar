@@ -5,7 +5,7 @@ module.exports = {
   '/alumni/event': {
     ...create
   },
-  '/alumni/event/{imageId}': {
+  '/alumni/event/upload_image/{imageId}': {
     ...upload
   }
 }
