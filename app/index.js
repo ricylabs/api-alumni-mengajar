@@ -2,14 +2,12 @@ const express = require("express")
 const morgan = require("morgan")
 const swaggerUI = require("swagger-ui-express")
 const cors = require('cors')
-const multer = require('multer')
 
 const mongoDB = require("../datastore/mongo/client")
 const config = require("../config")
 const docs = require('../docs')
 
 const app = express()
-const upload = multer()
 
 const routes = require('../routes')
 

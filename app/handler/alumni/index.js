@@ -1,7 +1,7 @@
 const dashboard = require('./dashboard')
-const createEvent = require('./createEvent')
+const _event = require('./_event')
 
 module.exports = {
   dashboard,
-  createEvent,
+  _event,
 }

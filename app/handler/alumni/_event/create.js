@@ -2,11 +2,11 @@ const jwt = require('jsonwebtoken')
 const luxon = require('luxon')
 const moment = require('moment-timezone')
 
-const service = require('../../../service')
-const helper = require('../../../helper')
+const service = require('../../../../service')
+const helper = require('../../../../helper')
 
 
-module.exports = async function createEvent(req, res) {
+module.exports = async function create(req, res) {
   const token = req.headers.authorization.split(' ')[1]
   const userId = jwt.decode(token).id
 
@@ -27,15 +27,24 @@ module.exports = async function createEvent(req, res) {
   delete req.body.end 
   const _event = helper.objectManipulation.renameKey(req.body, 'date', 'dateTime')
   _event.userId = userId
-  const newEvent = await service.alumni.create(_event)
-  res.status(201).json({
-    status:"Created",
-    code: "201",
-    data: {
-      id: newEvent.id,
-      userId: newEvent.userId,
-      imageId: newEvent.imageId
-    },
-    message: 'Succesfully created Event'
-  })
+  try {
+    const newEvent = await service._event.create(_event)
+    res.status(201).json({
+      code: "201",
+      status:"Created",
+      result: {
+        id: newEvent.id,
+        userId: newEvent.userId,
+        imageId: newEvent.imageId
+      },
+      message: 'Succesfully created Event'
+    })
+  } catch(error) {
+    res.status(400).json({
+      statusCode: 400,
+      status:"Bad Request",
+      message: 'Failed to create event',
+      error
+    })
+  }
 }

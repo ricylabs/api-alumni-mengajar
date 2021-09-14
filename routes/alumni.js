@@ -1,3 +1,5 @@
+const multer = require('multer')
+const upload = multer()
 const router = require('express').Router()
 
 // Middleware
@@ -25,7 +27,13 @@ router.post(
     middleware.verification.jwt,
     middleware.verification.alumni,
   ],
-  handler.alumni.createEvent
+  handler.alumni._event.create
+)
+
+router.post(
+  '/event/upload_image/:imageId',
+  upload.single('event'),
+  handler.alumni._event.upload,
 )
 
 module.exports = router

@@ -1,7 +1,7 @@
 const user = require('./user')
-const alumni = require('./alumni')
+const _event = require('./event')
 
 module.exports = {
   user,
-  alumni,
+  _event,
 }
