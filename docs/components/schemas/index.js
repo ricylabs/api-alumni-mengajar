@@ -1,7 +1,6 @@
-const account = require('./input/account')
-
+const input = require('./input')
 module.exports = {
   schemas:{
-    ...account,
+    ...input
   }
 }
