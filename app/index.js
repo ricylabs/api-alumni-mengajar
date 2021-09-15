@@ -2,12 +2,14 @@ const express = require("express")
 const morgan = require("morgan")
 const swaggerUI = require("swagger-ui-express")
 const cors = require('cors')
+const multer = require('multer')
 
 const mongoDB = require("../datastore/mongo/client")
 const config = require("../config")
 const docs = require('../docs')
 
 const app = express()
+const upload = multer()
 
 const routes = require('../routes')
 
@@ -31,6 +33,14 @@ async function start() {
   app.use(express.json('*/*')); 
   // for parsing application/xwww-form-urlencoded
   app.use(express.urlencoded({ extended: true })); 
+  // for parsing multipart/form-data
+  app.use(upload.any()); 
+  app.use(express.static('public'));
+  // app.use(function (err, req, res, next) {
+  //   console.log('This is the invalid field ->', err.field)
+  //   next(err)
+  // })
+  
 
   // Cors Configuration
   app.use(cors({origin: config.cors.origin}))

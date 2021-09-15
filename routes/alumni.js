@@ -1,3 +1,4 @@
+const express = require('express')
 const multer = require('multer')
 const upload = multer()
 const router = require('express').Router()
@@ -28,12 +29,6 @@ router.post(
     middleware.verification.alumni,
   ],
   handler.alumni._event.create
-)
-
-router.post(
-  '/event/upload_image/:imageId',
-  upload.single('event'),
-  handler.alumni._event.upload,
 )
 
 module.exports = router

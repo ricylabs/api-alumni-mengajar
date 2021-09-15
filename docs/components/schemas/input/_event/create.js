@@ -8,6 +8,10 @@ module.exports = {
   CreateEvent: {
     type:'object',
     properties: {
+      image: {
+        type: 'string',
+        format: 'binary',
+      },
       title: {
         type:'string',
         example:'Example Event Title'
@@ -44,6 +48,7 @@ module.exports = {
       }
     },
     required: [
+      'image',
       'title',
       'description',
       'date',

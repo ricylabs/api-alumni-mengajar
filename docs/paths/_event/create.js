@@ -1,7 +1,7 @@
 module.exports = {
   post: {
     tags: ['Event'],
-    summary: 'Create event for alumni, upload to MongoDB',
+    summary: 'Create event for Alumni',
     security: [
       {
         bearerAuth: []
@@ -13,7 +13,7 @@ module.exports = {
     requestBody: {
       requred: true,
       content: {
-        'application/x-www-form-urlencoded': {
+        'multipart/form-data': {
           schema: {
             $ref: '#/components/schemas/CreateEvent'
           }
@@ -41,16 +41,25 @@ module.exports = {
                   properties: {
                     id : {
                       type: 'string',
-                      example: "d972b077-30fa-4dbd-80b3-9a5b08b35093",
+                      example: "660f7c10-d0ce-41e6-a02b-4c44a5239c9c",
                     },
                     userId: {
                       type: 'string',
                       example: "2d354fd3-4ad4-412f-8d73-a18d7c13ba0c",
                     },
-                    imageId: {
-                      type: 'string',
-                      example: "65276e85-2fb0-483e-aa4c-95a8ab26ecdd",
-                    },
+                    image: {
+                      type: 'object',
+                      properties: {
+                        imageId: {
+                          type: 'string',
+                          example: "6d1273d1-d0bb-4521-ac22-9b533d3a2b74",
+                        },
+                        imageUrl: {
+                          type: 'string',
+                          example: 'https://storage.googleapis.com/api-alumni-mengajar.appspot.com/event/6d1273d1-d0bb-4521-ac22-9b533d3a2b74.jpg'
+                        }
+                      }
+                    }
                   }
                 },
                 message:{

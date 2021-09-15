@@ -1,5 +1,7 @@
 module.exports = function schema(schema) {
   return function (req, res, next) {
+    // console.log(req.files)
+    // console.log(req.body)
     const { error } = schema.validate({
       header: req.headers,
       body: req.body,
