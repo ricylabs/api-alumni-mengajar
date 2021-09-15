@@ -30,17 +30,12 @@ async function start() {
   app.set('views', './views')
 
   // for parsing application/json
-  app.use(express.json('*/*')); 
+  app.use(express.json('*/*')) 
   // for parsing application/xwww-form-urlencoded
-  app.use(express.urlencoded({ extended: true })); 
+  app.use(express.urlencoded({ extended: true }))
   // for parsing multipart/form-data
-  app.use(upload.any()); 
-  app.use(express.static('public'));
-  // app.use(function (err, req, res, next) {
-  //   console.log('This is the invalid field ->', err.field)
-  //   next(err)
-  // })
-  
+  app.use(upload.any());
+  app.use(express.static('public'))
 
   // Cors Configuration
   app.use(cors({origin: config.cors.origin}))
