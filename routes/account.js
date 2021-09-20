@@ -1,10 +1,8 @@
 const express = require('express')
-const multer = require('multer')
 
 const middleware = require('../app/middleware') // Middleware
 const schema = require('../app/schema') // Schema
 const handler = require('../app/handler') // Handler
-const upload = multer()
 
 const router = express.Router()
 
@@ -20,9 +18,14 @@ router.post(
 
 router.post(
   '/login',
-  upload.array(),
   middleware.validation.schema(schema.account.login),
   handler.account.login
+)
+
+router.get(
+  '/',
+  middleware.verification.jwt,
+  handler.account.getUser
 )
 
 module.exports = router
