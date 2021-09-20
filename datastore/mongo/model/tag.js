@@ -2,14 +2,10 @@ const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
   id: {
-    type: String,
+    type: Number,
     require: true
   },
   tag: {
-    type: String,
-    require: true,
-  },
-  type: {
     type: String,
     require: true,
   },

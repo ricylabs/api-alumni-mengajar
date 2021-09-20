@@ -25,12 +25,6 @@ function create(data) {
 }
 
 async function upload(file, destination) {
-  let serviceAccount = config.serviceAccount
-
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    storageBucket: "gs://api-alumni-mengajar.appspot.com",
-  })
 
   const bucket = admin.storage().bucket()
   const bucketFile = bucket.file(destination)

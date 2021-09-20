@@ -11,6 +11,7 @@ module.exports = _event = joi.object({
     capacity: joi.number().required(),
     price: joi.number().required(),
     link: joi.string().required(),
+    tags: joi.string(),
   }),
   files: joi.array(),
   query: joi.object().unknown(),
