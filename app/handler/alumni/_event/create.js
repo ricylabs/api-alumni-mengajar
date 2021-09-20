@@ -9,6 +9,10 @@ module.exports = async function create(req, res) {
   const token = req.headers.authorization.split(' ')[1]
   const userId = jwt.decode(token).id
 
+  const file = req.files[0]
+  const splitNameFile = file.originalname.split('.')
+  const formatFile = splitNameFile[splitNameFile.length - 1]
+
   const time = moment.tz(luxon.DateTime.now().toString(), "Asia/Jakarta");
   const engDay = time.format('dddd')
   const engMonth = time.format('MMMM')
@@ -23,6 +27,9 @@ module.exports = async function create(req, res) {
   }
 
   req.body.enrolled = 0
+  req.body.image = {
+    format: formatFile
+  }
   req.body.date = dateTime
   delete req.body.start
   delete req.body.end 
@@ -31,7 +38,7 @@ module.exports = async function create(req, res) {
   
   try {
     const newEvent = await service._event.create(_event)
-    const imageId = newEvent.imageId 
+    const imageId = newEvent.image.id
     const allowedFileType = [
       'image/png',
       'image/jpeg',
@@ -45,9 +52,6 @@ module.exports = async function create(req, res) {
       const newTag = await service.tag.create('event', newEvent.id, tag)
       tagIds.push(newTag._id)
     })    
-    const file = req.files[0]
-    const splitNameFile = file.originalname.split('.')
-    const formatFile = splitNameFile[splitNameFile.length - 1]
   
     if(allowedFileType.includes(file.mimetype)) {
       const image = await service._event.upload(file.buffer, `event/${imageId}.${formatFile}`)

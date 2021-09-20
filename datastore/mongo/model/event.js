@@ -51,8 +51,8 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  imageId: {
-    type: String,
+  image: {
+    type: Object,
     required: true,
   },
   userId: {

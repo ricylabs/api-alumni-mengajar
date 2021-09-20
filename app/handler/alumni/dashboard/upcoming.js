@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const moment = require('moment-timezone')
 
 const service = require('../../../../service')
-const helper = require('../../../../helper')
 
 module.exports = async function upcoming(req, res) {
   const token = req.headers.authorization.split(' ')[1]
@@ -23,11 +22,14 @@ module.exports = async function upcoming(req, res) {
   })
   let upcomingEvent = eventsTimeDiff.sort((a, b) => a.minDiff - b.minDiff)
                  .filter((item, index, array) => item.minDiff === array[0].minDiff)[0]
+  upcomingEvent.imageUrl = `https://storage.googleapis.com/api-alumni-mengajar.appspot.com/event/${upcomingEvent.image.id}.${upcomingEvent.image.format}`
+  const deletedProperties = ['minDiff', 'visited','image','createdAt','updatedAt','__v']
+  deletedProperties.forEach(key => delete upcomingEvent[key])
   delete upcomingEvent.minDiff
   return res.status(200).json({
     statusCode: 200,
     status: 'OK',
-    result: {
+    result: {   
       upcomingEvent
     },
     message: "Successfully returned alumni's Upcoming Event"

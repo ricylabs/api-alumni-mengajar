@@ -5,8 +5,6 @@ const admin = require("firebase-admin")
 const { format } = require("util")
 
 const model = require('../datastore/mongo/model')
-const config = require('../config')
-const { note } = require('../app/schema/input/account/login')
 
 function create(data) {
   const  id = uuid.v4()
@@ -21,6 +19,7 @@ function create(data) {
     createdAt: dateTimeNow,
     updatedAt: dateTimeNow,
   }
+  newEvent.image.id = imageId
   
   return model._event.create(newEvent)
 }

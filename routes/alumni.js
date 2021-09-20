@@ -12,15 +12,6 @@ const schema = require('../app/schema')
 // Handler
 const handler = require('../app/handler')
 
-router.get(
-  '/dashboard',
-  [
-    middleware.verification.jwt,
-    middleware.verification.alumni,
-  ],
-  handler.alumni.dashboard
-)
-
 router.post(
   '/event',
   [
@@ -37,6 +28,6 @@ router.get(
     middleware.verification.jwt,
     middleware.verification.alumni,
   ],
-  handler.alumni._event.upcoming,
+  handler.alumni.dashboard.upcoming,
 )
 module.exports = router
