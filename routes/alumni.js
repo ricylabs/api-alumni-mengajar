@@ -32,7 +32,7 @@ router.post(
 )
 
 router.get(
-  '/event/upcoming',
+  '/dashboard/upcoming-event',
   [
     middleware.verification.jwt,
     middleware.verification.alumni,
