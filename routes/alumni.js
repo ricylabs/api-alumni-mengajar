@@ -31,4 +31,12 @@ router.post(
   handler.alumni._event.create
 )
 
+router.get(
+  '/event/upcoming',
+  [
+    middleware.verification.jwt,
+    middleware.verification.alumni,
+  ],
+  handler.alumni._event.upcoming,
+)
 module.exports = router

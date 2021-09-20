@@ -10,7 +10,19 @@ async function upload(file, destination) {
   return uploadedImage
 }
 
+async function getEventById(id) {
+  let event = await repository._event.getEventById(id)
+  return event 
+}
+
+async function getAllByUserId(userId) {
+  let events = await repository._event.getAllByUserId(userId)
+  return events
+}
+
 module.exports = {
   create,
-  upload
+  upload,
+  getEventById,
+  getAllByUserId,
 }

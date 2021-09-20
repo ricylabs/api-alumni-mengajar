@@ -6,6 +6,7 @@ const { format } = require("util")
 
 const model = require('../datastore/mongo/model')
 const config = require('../config')
+const { note } = require('../app/schema/input/account/login')
 
 function create(data) {
   const  id = uuid.v4()
@@ -40,7 +41,17 @@ async function upload(file, destination) {
   }
 }
 
+async function getEventById(id) {
+  return model._event.findOne({ id })
+}
+
+function getAllByUserId(userId) {
+  return model._event.find({ userId })
+}
+
 module.exports = {
   create,
   upload,
+  getEventById,
+  getAllByUserId,
 }
