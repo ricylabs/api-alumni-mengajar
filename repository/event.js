@@ -19,7 +19,7 @@ function create(data) {
     createdAt: dateTimeNow,
     updatedAt: dateTimeNow,
   }
-  newEvent.image.id = imageId
+  newEvent.image._id = imageId
   
   return model._event.create(newEvent)
 }

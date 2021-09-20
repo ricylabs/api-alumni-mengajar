@@ -5,11 +5,11 @@ const service = require('../../../service')
 
 module.exports = async function getUser(req, res) {
   const token = req.headers.authorization.split(' ')[1]
-  const id = jwt.decode(token).id
+  const id = jwt.decode(token)._id
   const user = await service.user.getUserById(id)
 
   const result = {
-    id: user.id,
+    id: user._id,
     username: user.username,
     firstName: user.firstName,
     lastName: user.lastName,

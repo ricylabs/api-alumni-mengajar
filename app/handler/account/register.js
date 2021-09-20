@@ -12,7 +12,7 @@ module.exports = async function register(req, res) {
     statusCode: 201,
     status: 'Created',
     result: {
-      userId: newUser.id,
+      userId: newUser._id,
     },
     message: "Account Successfully Created"
   })

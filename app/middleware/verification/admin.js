@@ -4,7 +4,7 @@ const service = require('../../../service')
 
 module.exports = admin = async (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1]
-  const id = jwt.decode(token).id
+  const id = jwt.decode(token)._id
   const user = await service.user.getUserById(id)
   const role = await user.role
 
