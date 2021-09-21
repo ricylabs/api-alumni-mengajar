@@ -7,7 +7,7 @@ const helper = require('../../../../helper')
 
 module.exports = async function create(req, res) {
   const token = req.headers.authorization.split(' ')[1]
-  const userId = jwt.decode(token)._id
+  const userId = jwt.decode(token).id
 
   const file = req.files[0]
   const splitNameFile = file.originalname.split('.')
@@ -38,7 +38,7 @@ module.exports = async function create(req, res) {
   
   try {
     const newEvent = await service._event.create(_event)
-    const imageId = newEvent.image._id
+    const imageId = newEvent.image.id
     const allowedFileType = [
       'image/png',
       'image/jpeg',
@@ -49,8 +49,8 @@ module.exports = async function create(req, res) {
     const splittedTags = req.body.tags.split(',')
 
     splittedTags.forEach(async tag => {
-      const newTag = await service.tag.create('event', newEvent._id, tag)
-      tagIds.push(newTag._id)
+      const newTag = await service.tag.create('event', newEvent.id, tag)
+      tagIds.push(newTag.id)
     })    
   
     if(allowedFileType.includes(file.mimetype)) {
@@ -60,7 +60,7 @@ module.exports = async function create(req, res) {
         statusCode: 201,
         status: 'Created',
         result: {
-          id: newEvent._id,
+          id: newEvent.id,
           userId: newEvent.userId,
           image: {
             id: newEvent.imageId,

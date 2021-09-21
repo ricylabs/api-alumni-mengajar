@@ -7,7 +7,7 @@ function save(data) {
   const id = uuid.v4()
   const dateTimeNow = luxon.DateTime.now().toString()
   const userData = {
-    id,
+    id: Object(id),
     ...data,
     createdAt: dateTimeNow,
     updatedAt: dateTimeNow,

@@ -17,7 +17,7 @@ async function create(type, otherId, tag) {
     newTag = await repository.tag.addUsage(tag)
   }
 
-  const tagId = await newTag._id
+  const tagId = await newTag.id
   switch (type) {
     case 'event':
         await repository.tag.relationship.createTagEvent(otherId, tagId)

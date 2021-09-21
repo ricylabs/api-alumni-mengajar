@@ -10,7 +10,7 @@ module.exports = async function login(req, res) {
 
   if (user === null) return res.status(401).json({ message: 'Invalid Username, please try again!' })
 
-  let id = user._id
+  let id = user.id
   let password = user.password
 
   if (user && bcrypt.compareSync(req.body.password, password)) {
