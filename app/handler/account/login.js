@@ -14,7 +14,7 @@ module.exports = async function login(req, res) {
   let password = user.password
 
   if (user && bcrypt.compareSync(req.body.password, password)) {
-    const token = jwt.sign({ id }, config.jwt.secretToken, { expiresIn: '15m' })
+    const token = jwt.sign({ id }, config.jwt.secretToken, { expiresIn: '1h' })
     return res.status(200).json({
       statusCode: 200,
       status: 'OK',

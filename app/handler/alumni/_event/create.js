@@ -9,6 +9,10 @@ module.exports = async function create(req, res) {
   const token = req.headers.authorization.split(' ')[1]
   const userId = jwt.decode(token).id
 
+  const file = req.files[0]
+  const splitNameFile = file.originalname.split('.')
+  const formatFile = splitNameFile[splitNameFile.length - 1]
+
   const time = moment.tz(luxon.DateTime.now().toString(), "Asia/Jakarta");
   const engDay = time.format('dddd')
   const engMonth = time.format('MMMM')
@@ -21,24 +25,39 @@ module.exports = async function create(req, res) {
     start: req.body.start,
     end: req.body.end,
   }
+
   req.body.enrolled = 0
+  req.body.image = {
+    format: formatFile
+  }
   req.body.date = dateTime
   delete req.body.start
   delete req.body.end 
   const _event = helper.objectManipulation.renameKey(req.body, 'date', 'dateTime')
   _event.userId = userId
-
+  
   try {
     const newEvent = await service._event.create(_event)
-    const imageId = newEvent.imageId
+    const imageId = newEvent.image.id
     const allowedFileType = [
       'image/png',
       'image/jpeg',
       'image/jpg'
     ]
-    const file = req.files[0]
-    const splitNameFile = file.originalname.split('.')
-    const formatFile = splitNameFile[splitNameFile.length - 1]
+
+    let tags = []
+    const requestedTags = req.body.tags.replace(/\s+/g, ' ').trim()
+    if (requestedTags.includes(',')) {
+      tags.push(...requestedTags.split(',').map((item) => item.trim()))
+    } else {
+      tags.push(requestedTags)
+    }
+
+    let tagIds = []
+    for (let i = 0; i < tags.length; i++) {
+      const newTag = await service.tag.create('alumni', userId, tags[i])
+      tagIds.push(newTag.id)
+    }  
   
     if(allowedFileType.includes(file.mimetype)) {
       const image = await service._event.upload(file.buffer, `event/${imageId}.${formatFile}`)
@@ -53,11 +72,13 @@ module.exports = async function create(req, res) {
             id: newEvent.imageId,
             url: image.publicUrl,
           },
+          tagIds: tagIds
         },
-        message: 'Successfully uploaded file'
+        message: 'Successfully created Event'
       })
     }
   } catch(error) {
+    console.log(error)
     res.status(400).json({
       statusCode: 400,
       status:"Bad Request",

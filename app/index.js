@@ -3,6 +3,7 @@ const morgan = require("morgan")
 const swaggerUI = require("swagger-ui-express")
 const cors = require('cors')
 const multer = require('multer')
+const admin = require('firebase-admin')
 
 const mongoDB = require("../datastore/mongo/client")
 const config = require("../config")
@@ -18,6 +19,13 @@ async function start() {
     console.log('MongoDB connected')
   }).catch(error => {
     console.log(error);
+  })
+
+  let serviceAccount = config.serviceAccount
+
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    storageBucket: "gs://api-alumni-mengajar.appspot.com",
   })
 
   if (config.app.env == 'production') app.use(morgan('common'))

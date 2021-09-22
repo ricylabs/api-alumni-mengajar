@@ -5,7 +5,6 @@ const admin = require("firebase-admin")
 const { format } = require("util")
 
 const model = require('../datastore/mongo/model')
-const config = require('../config')
 
 function create(data) {
   const  id = uuid.v4()
@@ -20,17 +19,12 @@ function create(data) {
     createdAt: dateTimeNow,
     updatedAt: dateTimeNow,
   }
+  newEvent.image.id = imageId
   
   return model._event.create(newEvent)
 }
 
 async function upload(file, destination) {
-  let serviceAccount = config.serviceAccount
-
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    storageBucket: "gs://api-alumni-mengajar.appspot.com",
-  })
 
   const bucket = admin.storage().bucket()
   const bucketFile = bucket.file(destination)
@@ -46,7 +40,27 @@ async function upload(file, destination) {
   }
 }
 
+function getEventById(id) {
+  return model._event.findOne({ id })
+}
+
+function getAll() {
+  return model._event.find()
+}
+
+function getAllByUserId(userId) {
+  return model._event.find({ userId })
+}
+
+function getAllSortedByVisitedAsc() {
+  return model._event.find({}).sort({visited: 'desc'})
+}
+
 module.exports = {
   create,
   upload,
+  getEventById,
+  getAll,
+  getAllByUserId,
+  getAllSortedByVisitedAsc
 }

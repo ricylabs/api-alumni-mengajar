@@ -1,5 +1,6 @@
 const login = require('./login')
 const register = require('./register')
+const getUser = require('./getUser')
 
 module.exports = {
   '/account/login': {
@@ -7,5 +8,8 @@ module.exports = {
   },
   '/account/register': {
     ...register
+  },
+  '/account': {
+    ...getUser
   }
 }

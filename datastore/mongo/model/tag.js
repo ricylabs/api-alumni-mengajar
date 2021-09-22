@@ -9,10 +9,6 @@ const schema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  type: {
-    type: String,
-    require: true,
-  },
   usage: {
     type: Number,
     require: true,
