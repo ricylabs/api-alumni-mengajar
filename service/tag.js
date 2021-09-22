@@ -19,22 +19,19 @@ async function create(type, otherId, tag) {
   } else {
     newTag = await repository.tag.addUsage(tag)
   }
-
   const tagId = await newTag.id
 
-  switch (type) {
-    case 'event':
-        await repository.tag.relationship._event.create(otherId, tagId)
-      break;
-    case 'alumni':
-        await repository.tag.relationship.alumni.create(otherId, tagId)
-      break;
-    case 'article':
-        await repository.tag.relationship.article.create(otherId, tagId)
-      break;
-    default:
-      break;
-  }
+  const existingTag = await repository.tag.relationship.getRelationTagByTagIdOtherId(type, tagId, otherId)
+  if (existingTag.length === 0) {
+    switch (type) {
+      case 'event':
+          await repository.tag.relationship._event.create(otherId, tagId)
+      case 'alumni':
+          await repository.tag.relationship.alumni.create(otherId, tagId)
+      case 'article':
+          await repository.tag.relationship.article.create(otherId, tagId)
+    }
+  } 
   return newTag
 }
 

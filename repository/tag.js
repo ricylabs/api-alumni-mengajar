@@ -65,9 +65,21 @@ function getArticleTagById(articleId) {
   return model.tagArticle.find({articleId})
 }
 
+function getRelationTagByTagIdOtherId(type, tagId, otherId) {
+  switch (type) {
+    case 'alumni':
+      return model.tagAlumni.find({userId: otherId, tagId})
+    case 'event':
+      return model.tagEvent.find({eventId:otherId, tagId})
+    case 'article':
+      return mode.tagArticle.find({articleId: otherId, tagId})
+  }
+}
+
 module.exports = {
   create,
   relationship: {
+    getRelationTagByTagIdOtherId,
     alumni: {
       getTagById: getAlumniTagById,
       create: createTagAlumni
