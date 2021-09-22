@@ -69,6 +69,11 @@ async function start() {
     '/alumni',
     routes.alumni
   )
+  //event 
+  app.use(
+    '/event',
+    routes._event
+  )
 
   app.listen(config.app.port || 5000, ()=> {
     console.log('Application Running on Port', config.app.port)
