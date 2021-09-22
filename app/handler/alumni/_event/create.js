@@ -45,13 +45,19 @@ module.exports = async function create(req, res) {
       'image/jpg'
     ]
 
-    let tagIds = []
-    const splittedTags = req.body.tags.split(',')
+    let tags = []
+    const requestedTags = req.body.tags.replace(/\s+/g, ' ').trim()
+    if (requestedTags.includes(',')) {
+      tags.push(...requestedTags.split(',').map((item) => item.trim()))
+    } else {
+      tags.push(requestedTags)
+    }
 
-    splittedTags.forEach(async tag => {
-      const newTag = await service.tag.create('event', newEvent.id, tag)
+    let tagIds = []
+    for (let i = 0; i < tags.length; i++) {
+      const newTag = await service.tag.create('alumni', userId, tags[i])
       tagIds.push(newTag.id)
-    })   
+    }  
   
     if(allowedFileType.includes(file.mimetype)) {
       const image = await service._event.upload(file.buffer, `event/${imageId}.${formatFile}`)

@@ -39,4 +39,13 @@ router.get(
   ],
   handler.alumni.dashboard.mostFavourableEvent
 )
+
+router.put(
+  '/profile',
+  [
+    middleware.verification.jwt,
+    middleware.verification.alumni,
+  ],
+  handler.alumni.profile.update
+)
 module.exports = router

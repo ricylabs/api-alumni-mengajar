@@ -68,12 +68,18 @@ function getArticleTagById(articleId) {
 module.exports = {
   create,
   relationship: {
-    createTagEvent,
-    createTagAlumni,
-    createTagArticle,
-    getEventTagById,
-    getAlumniTagById,
-    getArticleTagById,
+    alumni: {
+      getTagById: getAlumniTagById,
+      create: createTagAlumni
+    },
+    _event: {
+      getTagById: getEventTagById,
+      create: createTagEvent
+    },
+    article: {
+      getTagById: getArticleTagById,
+      create: createTagArticle
+    }
   },
   getTagById,
   getTagByName,

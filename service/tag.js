@@ -24,14 +24,14 @@ async function create(type, otherId, tag) {
 
   switch (type) {
     case 'event':
-        await repository.tag.relationship.createTagEvent(otherId, tagId)
+        await repository.tag.relationship._event.create(otherId, tagId)
       break;
     case 'alumni':
-        await repository.tag.relationship.createTagAlumni(otherId, tagId)
+        await repository.tag.relationship.alumni.create(otherId, tagId)
       break;
     case 'article':
-      await repository.tag.relationship.createTagArticle(otherId, tagId)
-    break;
+        await repository.tag.relationship.article.create(otherId, tagId)
+      break;
     default:
       break;
   }
@@ -43,15 +43,15 @@ function getTagById(id) {
 }
 
 function getEventTagById(id) {
-  return repository.tag.relationship.getEventTagById(id)
+  return repository.tag.relationship._event.getTagById(id)
 }
 
 function getAlumniTagById(id) {
-  return repository.tag.relationship.getAlumniTagById(id)
+  return repository.tag.relationship.alumni.getTagById(id)
 }
 
 function getArticleTagById(id) {
-  return repository.tag.relationship.getArticleTagById(id)
+  return repository.tag.relationship.article.getTagById(id)
 }
 
 async function getAllByOtherId(otherId, type) {
@@ -81,9 +81,15 @@ module.exports = {
   create,
   relationship: {
     getAllByOtherId,
-    getAlumniTagById,
-    getEventTagById,
-    getArticleTagById
+    alumni: {
+      getTagById: getAlumniTagById,
+    },
+    _event: {
+      getTagById: getEventTagById,
+    },
+    article: {
+      getTagById: getArticleTagById,
+    }
   },
   getTagById,
 }
