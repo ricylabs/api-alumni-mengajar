@@ -51,7 +51,7 @@ module.exports = async function create(req, res) {
     splittedTags.forEach(async tag => {
       const newTag = await service.tag.create('event', newEvent.id, tag)
       tagIds.push(newTag.id)
-    })    
+    })   
   
     if(allowedFileType.includes(file.mimetype)) {
       const image = await service._event.upload(file.buffer, `event/${imageId}.${formatFile}`)

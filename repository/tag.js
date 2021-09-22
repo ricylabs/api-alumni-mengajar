@@ -32,6 +32,10 @@ async function createTagArticle(articleId, tagId) {
   return eventTag
 }
 
+function getTagById(id) {
+  return model.tag.findOne({id})
+}
+
 async function getTagByName(name) {
   const tag = await model.tag.findOne({tag: name})
   return tag
@@ -49,13 +53,29 @@ async function addUsage(tag) {
   return updatedTag
 }
 
+function getEventTagById(eventId) {
+  return model.tagEvent.find({eventId})
+}
+
+function getAlumniTagById(userId) {
+  return model.tagAlumni.find({userId})
+}
+
+function getArticleTagById(articleId) {
+  return model.tagArticle.find({articleId})
+}
+
 module.exports = {
   create,
   relationship: {
     createTagEvent,
     createTagAlumni,
     createTagArticle,
+    getEventTagById,
+    getAlumniTagById,
+    getArticleTagById,
   },
+  getTagById,
   getTagByName,
   getAll,
   addUsage,

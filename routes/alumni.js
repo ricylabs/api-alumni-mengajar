@@ -30,4 +30,13 @@ router.get(
   ],
   handler.alumni.dashboard.upcoming,
 )
+
+router.get(
+  '/dashboard/most-favourable-event',
+  [
+    middleware.verification.jwt,
+    middleware.verification.alumni,
+  ],
+  handler.alumni.dashboard.mostFavourableEvent
+)
 module.exports = router

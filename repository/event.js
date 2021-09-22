@@ -40,17 +40,27 @@ async function upload(file, destination) {
   }
 }
 
-async function getEventById(id) {
+function getEventById(id) {
   return model._event.findOne({ id })
+}
+
+function getAll() {
+  return model._event.find()
 }
 
 function getAllByUserId(userId) {
   return model._event.find({ userId })
 }
 
+function getAllSortedByVisitedAsc() {
+  return model._event.find({}).sort({visited: 'desc'})
+}
+
 module.exports = {
   create,
   upload,
   getEventById,
+  getAll,
   getAllByUserId,
+  getAllSortedByVisitedAsc
 }
