@@ -23,4 +23,13 @@ router.get(
   handler.mahasiswa.dashboard.popularEvent
 )
 
+router.get(
+  '/dashboard/event-for-you',
+  [
+    middleware.verification.jwt,
+    middleware.verification.mahasiswa
+  ],
+  handler.mahasiswa.dashboard.eventsForYou
+)
+
 module.exports = router
