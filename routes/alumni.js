@@ -40,6 +40,15 @@ router.get(
   handler.alumni.dashboard.mostFavourableEvent
 )
 
+router.get(
+  '/dashboard/statistics',
+  [
+    middleware.verification.jwt,
+    middleware.verification.alumni,
+  ],
+  handler.alumni.dashboard.statistics
+)
+
 router.put(
   '/profile',
   [
