@@ -77,6 +77,7 @@ module.exports = async function(req, res) {
   const resultEvents = []
   eventsForYou.forEach(event => {
     const data = {
+      id: event.id,
       title: event.title,
       price: event.price,
       enrolled: event.enrolled,
