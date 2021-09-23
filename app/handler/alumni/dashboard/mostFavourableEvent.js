@@ -32,11 +32,24 @@ module.exports = async function(req, res) {
 
   const mostFavourableEvents = events.slice(0, 5)
 
+  const resultEvents = []
+  mostFavourableEvents.forEach(event => {
+    const data = {
+      title: event.title,
+      price: event.price,
+      enrolled: event.enrolled,
+      capacity: event.capacity,
+      seatRemaining: event.capacity - event.enrolled,
+      imageUrl: `https://storage.googleapis.com/api-alumni-mengajar.appspot.com/event/${event.image.id}.${event.image.format}`
+    }
+    resultEvents.push(data)
+  })
+
   return res.status(200).json({
     statusCode: 200,
     status: 'OK',
     result: {
-      events: mostFavourableEvents
+      events: resultEvents
     },
     message: 'Successfully returned most favourable event'
   })
