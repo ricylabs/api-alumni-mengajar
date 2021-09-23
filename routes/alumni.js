@@ -23,6 +23,15 @@ router.post(
 )
 
 router.get(
+  '/events',
+  [
+    middleware.verification.jwt,
+    middleware.verification.alumni,
+  ],
+  handler.alumni._event.listEvent
+)
+
+router.get(
   '/dashboard/upcoming-event',
   [
     middleware.verification.jwt,
