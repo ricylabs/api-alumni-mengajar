@@ -30,13 +30,26 @@ module.exports = async function(req, res) {
     events[i].tags = await service.tag.relationship.getAllByOtherId(events[i].id, 'event')
   }
 
-  const pupularEvents = events.slice(0, 5)
+  const popularEvents = events.slice(0, 5)
+
+  const resultEvents = []
+  popularEvents.forEach(event => {
+    const data = {
+      title: event.title,
+      price: event.price,
+      enrolled: event.enrolled,
+      capacity: event.capacity,
+      seatRemaining: event.capacity - event.enrolled,
+      imageUrl: `https://storage.googleapis.com/api-alumni-mengajar.appspot.com/event/${event.image.id}.${event.image.format}`
+    }
+    resultEvents.push(data)
+  })
 
   return res.status(200).json({
     statusCode: 200,
     status: 'OK',
     result: {
-      events: pupularEvents
+      events: resultEvents
     },
     message: 'Successfully returned popular events'
   })
