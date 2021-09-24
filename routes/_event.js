@@ -14,7 +14,7 @@ const handler = require('../app/handler')
 const { route } = require('./alumni')
 
 router.get(
-    '/:imageId',
+    '/:eventId',
     [
         middleware.verification.jwt
     ],

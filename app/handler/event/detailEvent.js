@@ -8,9 +8,14 @@ module.exports = async function detailEvent(req,res) {
     const userId = jwt.decode(token).id
     const user = await service.user.getUserById(userId)
     const role = user.role
-    const event = await service._event.
-    console.log(user)
+    const eventId = req.params.eventId
+    const getEvent = await service._event.getEventById(eventId) 
+    const event = JSON.parse((JSON.stringify)(getEvent))
+    const isBooked = await service.booking.checkBooking(userId,eventId)
+    if(role === "mahasiswa" && !isBooked) {
+        delete event.link
+    }
+    console.log(event)
     //databooking
-    const isBooked = await service.booking.checkBooking("terserah mau ngetik apa","ini event")
-    return res.status(200).json({isBooked})
+    return res.status(200).json({event})
 }
