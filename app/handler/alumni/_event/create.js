@@ -21,11 +21,15 @@ module.exports = async function create(req, res) {
     isFileExist = true
   }
 
-  const time = moment.tz(luxon.DateTime.now().toString(), "Asia/Jakarta");
+  const eventStart = new Date(`${req.body.date} ${req.body.start}`)
+  const time = moment.tz(eventStart.toISOString(), "Asia/Jakarta");
+  console.log(time.format('MMMM'))
   const engDay = time.format('dddd')
   const engMonth = time.format('MMMM')
+  console.log(engMonth)
   const day = helper.converter.toIndonesiaDay(engDay)
   const month = helper.converter.toIndonesiaMonth(engMonth)
+  console.log(month)
   let dateTime = {
     date: req.body.date,
     day,

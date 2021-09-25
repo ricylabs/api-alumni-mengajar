@@ -32,7 +32,7 @@ module.exports = toIndonesiaMonth = (month) => {
         indonesiaMonth = 'Oktober'
       break;
     case 'November':
-        indonesiaMonth = 'Oktober'
+        indonesiaMonth = 'November'
       break;
     case 'December':
         indonesiaMonth = 'Desember'
