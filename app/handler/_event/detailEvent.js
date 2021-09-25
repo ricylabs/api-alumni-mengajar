@@ -12,38 +12,57 @@ module.exports = async function detailEvent(req,res) {
     const getEvent = await service._event.getEventById(eventId) 
     const event = JSON.parse((JSON.stringify)(getEvent))
     const isBooked = await service.booking.checkBooking(userId,eventId)
-    if(role === "mahasiswa" && !isBooked) {
-        // delete event.link
-    }
 
     const alumni = await service.user.getUserById(event.userId)
     const alumniName = `${alumni.firstName} ${alumni.lastName}`
 
-    // const tagEvents = await service.tag.getTagById
+    const tagEvents = await service.tag.relationship.getAllByOtherId(event.id, 'event')
+
+    let imageUrl = ''
+    if (event.hasOwnProperty('image')) {
+      imageUrl = `https://storage.googleapis.com/api-alumni-mengajar.appspot.com/event/${event.image.id}.${event.image.format}`
+    } else {
+      imageUrl = undefined
+    }
 
     const eventDate = event.dateTime
-    const result = {
+    let result = {
       event: {
         id: event.id,
         title: event.title,
-        date: `${eventDate.day}, ${eventDate.date.slice(-2)} ${eventDate.month} ${eventDate.date.slice(3)}`,
+        date: `${eventDate.day}, ${eventDate.date.slice(-2)} ${eventDate.month} ${eventDate.date.slice(0,4)}`,
+        enrolled: event.enrolled,
+        capacity: event.capacity,
         price: event.price,
         speaker: alumniName,
-        // tag
-        mahasiswa: {
-          id: userId,
-          isBooked
-        },
-
+        tags: tagEvents,
+        description: event.description,
+        imageUrl,
+        alumni: {
+          id: event.userId,
+          name: alumniName,
+          perguruanTinggi: event.perguruanTinggi
+        }
       }
     }
+
+  if (role === 'mahasiswa') {
+    result.event.mahasiswa = {
+      id: userId,
+      isBooked
+    }
+  }
+
+  if(role === "mahasiswa" && isBooked) {
+    result.event.link = event.link
+  } else if(role === 'alumni') {
+    result.event.link = event.link
+  }
 
     return res.status(200).json({
       statusCode: 200,
       status: 'OK',
-      result: {
-        event
-      },
+      result,
       message: 'Successfully returned detail event'
     })
 }

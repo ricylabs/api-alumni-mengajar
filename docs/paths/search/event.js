@@ -13,7 +13,7 @@ module.exports = {
       }
     ],
     responses: {
-      '201': {
+      '200': {
         description: 'Successfully Returned Searched Content',
         content: {
           'application/json': {

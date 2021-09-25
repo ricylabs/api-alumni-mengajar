@@ -2,8 +2,6 @@ const mongoose = require('mongoose')
 const moment = require('moment-timezone')
 const luxon = require('luxon')
 
-const dateIndonesia = moment.tz(luxon.DateTime.now().toString(), "Asia/Jakarta")
-
 const schema = new mongoose.Schema({
   id: {
     type: String,
@@ -34,6 +32,10 @@ const schema = new mongoose.Schema({
       type: String,
       required: true,
     },
+  },
+  description: {
+    type: String,
+    required: false,
   },
   capacity: {
     type: Number,
