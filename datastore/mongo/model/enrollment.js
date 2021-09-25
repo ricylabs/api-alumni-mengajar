@@ -14,7 +14,7 @@ const schema = new mongoose.Schema({
     require: true,
   },
   createdAt: {
-    type: String,
+    type: Date,
     require: true,
   }
 })
