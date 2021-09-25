@@ -9,9 +9,16 @@ module.exports = async function create(req, res) {
   const token = req.headers.authorization.split(' ')[1]
   const userId = jwt.decode(token).id
 
-  const file = req.files[0]
-  const splitNameFile = file.originalname.split('.')
-  const formatFile = splitNameFile[splitNameFile.length - 1]
+  let file =''
+  let splitNameFile=''
+  let formatFile=''
+  let isFileExist = false
+  if (req.files.length !== 0) {
+    file = req.files[0]
+    splitNameFile = file.originalname.split('.')
+    formatFile = splitNameFile[splitNameFile.length - 1]
+    isFileExist = true
+  }
 
   const time = moment.tz(luxon.DateTime.now().toString(), "Asia/Jakarta");
   const engDay = time.format('dddd')
@@ -58,23 +65,36 @@ module.exports = async function create(req, res) {
       const newTag = await service.tag.create('alumni', userId, tags[i])
       tagIds.push(newTag.id)
     }  
-  
-    if(allowedFileType.includes(file.mimetype)) {
-      const image = await service._event.upload(file.buffer, `event/${imageId}.${formatFile}`)
-      
+
+    if (isFileExist) {
+      if(allowedFileType.includes(file.mimetype)) {
+        const image = await service._event.upload(file.buffer, `event/${imageId}.${formatFile}`)
+        
+        return res.status(201).json({
+          statusCode: 201,
+          status: 'Created',
+          result: {
+            id: newEvent.id,
+            userId: newEvent.userId,
+            image: {
+              id: newEvent.imageId,
+              url: image.publicUrl,
+            },
+            tagIds: tagIds
+          },
+          message: 'Successfully created Event'
+        })
+      } 
+    } else {
       return res.status(201).json({
         statusCode: 201,
         status: 'Created',
         result: {
           id: newEvent.id,
           userId: newEvent.userId,
-          image: {
-            id: newEvent.imageId,
-            url: image.publicUrl,
-          },
           tagIds: tagIds
         },
-        message: 'Successfully created Event'
+        message: "Successfully created Event, but couldn't save image!"
       })
     }
   } catch(error) {
