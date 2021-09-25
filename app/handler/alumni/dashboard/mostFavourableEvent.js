@@ -55,6 +55,5 @@ module.exports = async function(req, res) {
     message: 'Successfully returned most favourable event'
   })
 
-  console.log(events)
   return res.status(200).json({message: 'berhasil'})
 }
