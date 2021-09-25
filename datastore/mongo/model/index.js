@@ -5,7 +5,7 @@ const alumniCertification = require('./alumniCertification')
 const alumniEducation = require('./alumniEducation') 
 const alumniExprerience = require('./alumniExperience') 
 const article = require('./article') 
-const booking = require('./booking') 
+const enrollment = require('./enrollment') 
 const _event = require('./event') 
 const image = require('./image') 
 const tag = require('./tag')
@@ -21,11 +21,12 @@ module.exports = {
   alumniEducation,
   alumniExprerience,
   article,
-  booking,
+  enrollment,
   _event,
   image,
   tag,
   tagAlumni,
   tagArticle,
   tagEvent,
+  enrollment
 }

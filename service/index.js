@@ -1,13 +1,13 @@
 const user = require('./user')
 const _event = require('./event')
-const booking = require('./booking')
+const enrollment = require('./enrollment')
 const tag = require('./tag')
 const article = require('./article')
 
 module.exports = {
   user,
   _event,
-  booking,
+  enrollment,
   tag,
   article,
 }

@@ -2,8 +2,8 @@ const luxon = require('luxon')
 const moment = require('moment-timezone')
 const model = require('../datastore/mongo/model')
 
-function checkBooking (userId, eventId) {
-    return model.booking.findOne({userId,eventId})
+function checkEnrollment (userId, eventId) {
+    return model.enrollment.findOne({userId,eventId})
 }
 
 function create(userId, eventId) {
@@ -13,10 +13,10 @@ function create(userId, eventId) {
     eventId,
     createdAt : dateTimeNow,
   }
-  return model.booking.create(data)
+  return model.enrollment.create(data)
 }
 
 module.exports = {
   create,
-  checkBooking
+  checkEnrollment
 }

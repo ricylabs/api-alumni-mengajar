@@ -98,7 +98,7 @@ module.exports = {
                               type: 'string',
                               example: 'cc4bb829-2edc-4989-b14e-e060be7f6214',
                             },
-                            isBooked:{
+                            isEnrolled:{
                               type: 'boolean',
                               example: false,
                             },

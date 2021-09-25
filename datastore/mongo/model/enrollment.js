@@ -19,4 +19,4 @@ const schema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Bookings', schema, 'bookings')
+module.exports = mongoose.model('Enrollments', schema, 'enrollments')

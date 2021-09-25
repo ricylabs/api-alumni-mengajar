@@ -1,9 +1,9 @@
 const profile = require('./profile')
 const dashboard = require('./dashboard')
-const booking = require('./booking')
+const enrollment = require('./enrollment')
 
 module.exports = {
   profile,
   dashboard,
-  booking,
+  enrollment,
 }

@@ -38,7 +38,7 @@ router.post(
     middleware.verification.jwt,
     middleware.verification.mahasiswa
   ],
-  handler.mahasiswa.booking.enroll
+  handler.mahasiswa.enrollment.enroll
 )
 
 module.exports = router

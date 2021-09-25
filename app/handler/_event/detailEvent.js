@@ -10,7 +10,7 @@ module.exports = async function detailEvent(req,res) {
     const eventId = req.params.eventId
     const getEvent = await service._event.getEventById(eventId) 
     const event = JSON.parse((JSON.stringify)(getEvent))
-    const isBooked = await service.booking.checkBooking(userId,eventId)
+    const isEnrolled = await service.enrollment.checkEnrollment(userId,eventId)
 
     const alumni = await service.user.getUserById(event.userId)
     const alumniName = `${alumni.firstName} ${alumni.lastName}`
@@ -48,11 +48,11 @@ module.exports = async function detailEvent(req,res) {
   if (role === 'mahasiswa') {
     result.event.mahasiswa = {
       id: userId,
-      isBooked
+      isEnrolled
     }
   }
 
-  if(role === "mahasiswa" && isBooked) {
+  if(role === "mahasiswa" && isEnrolled) {
     result.event.link = event.link
   } else if(role === 'alumni') {
     result.event.link = event.link
