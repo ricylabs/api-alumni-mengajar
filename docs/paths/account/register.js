@@ -28,11 +28,6 @@ module.exports = {
                   type: 'string',
                   example: 'Created',
                 },
-                token: {
-                  example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhiMWU2NzVhLTE5YTgtNDc1ZC04ZDgwLWU2NGMyZGJhYzM0NCIsImlhdCI6MTYzMTEwMjExNSwiZXhwIjoxNjMxMTAzMDE1fQ.aVYxP3oX085ARTLivfPVStxPJ0yBBy5HaaU-uTeMvFs',
-                  type: 'string',
-                  description:'JSON Web Token (JWT). Use to Authorize Account!'
-                },
                 result: {
                   type: 'object',
                   properties: {
