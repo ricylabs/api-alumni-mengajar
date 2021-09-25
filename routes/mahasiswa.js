@@ -33,7 +33,7 @@ router.get(
 )
 
 router.post(
-  'event/enroll/:eventId',
+  '/event/enroll/:eventId',
   [
     middleware.verification.jwt,
     middleware.verification.mahasiswa

@@ -10,8 +10,9 @@ async function checkBooking (userId, eventId) {
     }
 }
 
-async function create(data) {
-  let newBooking = await repository.booking.create(data)
+async function create(userId, eventId) {
+  let newBooking = await repository.booking.create(userId, eventId)
+  return newBooking
 }
 
 module.exports = {

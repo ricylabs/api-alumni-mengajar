@@ -12,15 +12,35 @@ module.exports = async function(req, res) {
 
   const eventId = req.params.eventId
 
-  let getEvents = await service._event.getAllSortedByVisitedAsc()
+  let event = await service._event.getEventById(eventId)
+  
+  if(event === null) {
+    return res.satus(404).json({
+      statusCode: 404,
+      status: 'NOT FOUND',
+      message: 'INVALID EVENT ID'
+    })
+  }
 
+  const enrolled = event.enrolled
+  const capacity = event.capacity
 
-  return res.status(200).json({
-    statusCode: 200,
-    status: 'OK',
+  if(enrolled >= capacity) {
+    return res.satus(400).json({
+      statusCode: 400,
+      status: 'BAD REQUEST',
+      message: 'Event already full'
+    })
+  }
+
+  const enroll = await service.booking.create(userId, eventId)
+
+  return res.status(201).json({
+    statusCode: 201,
+    status: 'CREATED',
     result: {
-      events: resultEvents
+      bookingId: enroll._id
     },
-    message: 'Successfully returned Events for you'
+    message: 'Successfully enrolled Event'
   })
 }
