@@ -20,6 +20,15 @@ module.exports = async function(req, res) {
     })
   }
 
+  const isEnrolled = await service.enrollment.checkEnrollment(userId, eventId)
+  if(isEnrolled) {
+    return res.status(400).json({
+      statusCode: 400,
+      status: 'Bad Request',
+      message: "You've already enrolled event!"
+    })
+  }
+  
   const enrolled = event.enrolled
   const capacity = event.capacity
 
