@@ -8,7 +8,11 @@ module.exports = async function login(req, res) {
   let { username } = req.body
   let user = await service.user.getUserByUsername(username)
 
-  if (user === null) return res.status(401).json({ message: 'Invalid Username, please try again!' })
+  if (user === null) return res.status(401).json({
+    statusCode: 401,
+    status: 'Unauthorized',
+    message: "Invalid username, please try again!"
+  })
 
   let id = user.id
   let password = user.password
@@ -19,6 +23,7 @@ module.exports = async function login(req, res) {
       statusCode: 200,
       status: 'OK',
       token,
+      role: user.role,
       message: 'Successfully login to the server'
       })
   } else {

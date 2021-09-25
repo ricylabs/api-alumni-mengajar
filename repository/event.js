@@ -6,7 +6,7 @@ const { format } = require("util")
 
 const model = require('../datastore/mongo/model')
 
-function create(data) {
+function create(data, isFileExist) {
   const  id = uuid.v4()
   const imageId = uuid.v4()
   const dateTimeNow = moment.tz(luxon.DateTime.now().toString(), "Asia/Jakarta")
@@ -19,7 +19,9 @@ function create(data) {
     createdAt: dateTimeNow,
     updatedAt: dateTimeNow,
   }
-  newEvent.image.id = imageId
+  if (isFileExist) {
+    newEvent.image.id = imageId
+  }
   
   return model._event.create(newEvent)
 }

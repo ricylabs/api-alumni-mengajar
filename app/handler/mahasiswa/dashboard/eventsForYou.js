@@ -27,13 +27,55 @@ module.exports = async function(req, res) {
   })
 
   for (let i = 0; i < events.length; i++) {
+    if (events[i].alumni === undefined) {
+      events[i].alumni = {
+        id: events[i].userId
+      }
+    }
+    const alumni = await service.user.getUserById(events[i].userId)
+    const alumniInfo = {
+      perguruanTinggi: alumni.perguruanTinggi,
+      jurusan: alumni.jurusan
+    }
+    Object.assign(events[i].alumni, alumniInfo)
+
     events[i].tags = await service.tag.relationship.getAllByOtherId(events[i].id, 'event')
+    events[i].alumni.tags = await service.tag.relationship.getAllByOtherId(events[i].userId, 'alumni')
+
+    delete events[i].userId
   }
 
-  const mostFavourableEvents = events.slice(0, 5)
+  let recommendedEvents = []
+  let unrecommendedEvents = []
+
+  var arrCorrelationCheck = ['perguruanTinggi','jurusan'];
+  arrCorrelationCheck.unshift(...arrCorrelationCheck.flatMap(
+      (v, i) => arrCorrelationCheck.slice(i+1).map( w => v + ' ' + w )
+  ))
+
+  arrCorrelationCheck.forEach(element => {
+    events.forEach(event => {
+      if (element.includes(' ')) {
+        const elements = element.slice(' ')
+        if ((event.alumni[elements[0]] === user[elements[0]]) && 
+          (event.alumni[elements[1]] === user[elements[1]])) {
+            recommendedEvents.unshift(event)
+        }
+        else if ((event.alumni[elements[0]] === user[elements[0]]) || 
+          (event.alumni[elements[1]] === user[elements[1]])) {
+            recommendedEvents.push(event)
+        } else {
+          unrecommendedEvents.push(event)
+        }
+      }
+    })
+  })
+
+
+  const eventsForYou = [...recommendedEvents, ...unrecommendedEvents].slice(0, 5)
 
   const resultEvents = []
-  mostFavourableEvents.forEach(event => {
+  eventsForYou.forEach(event => {
     const data = {
       id: event.id,
       title: event.title,
@@ -52,9 +94,6 @@ module.exports = async function(req, res) {
     result: {
       events: resultEvents
     },
-    message: 'Successfully returned most favourable event'
+    message: 'Successfully returned Events for you'
   })
-
-  console.log(events)
-  return res.status(200).json({message: 'berhasil'})
 }

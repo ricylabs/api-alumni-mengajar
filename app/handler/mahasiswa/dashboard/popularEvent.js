@@ -30,10 +30,10 @@ module.exports = async function(req, res) {
     events[i].tags = await service.tag.relationship.getAllByOtherId(events[i].id, 'event')
   }
 
-  const mostFavourableEvents = events.slice(0, 5)
+  const popularEvents = events.slice(0, 5)
 
   const resultEvents = []
-  mostFavourableEvents.forEach(event => {
+  popularEvents.forEach(event => {
     const data = {
       id: event.id,
       title: event.title,
@@ -52,9 +52,6 @@ module.exports = async function(req, res) {
     result: {
       events: resultEvents
     },
-    message: 'Successfully returned most favourable event'
+    message: 'Successfully returned popular events'
   })
-
-  console.log(events)
-  return res.status(200).json({message: 'berhasil'})
 }

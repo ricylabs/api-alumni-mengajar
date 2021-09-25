@@ -71,6 +71,43 @@ module.exports = {
           }
         },
       },
+      '200': {
+        description: 'Successfully created Event',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties:{
+                statusCode: {
+                  example: 201,
+                  type: 'integer'
+                },
+                status: {
+                  example: "Created",
+                  type: 'string'
+                },
+                result: {
+                  type: 'object',
+                  properties: {
+                    id : {
+                      type: 'string',
+                      example: "660f7c10-d0ce-41e6-a02b-4c44a5239c9c",
+                    },
+                    userId: {
+                      type: 'string',
+                      example: "2d354fd3-4ad4-412f-8d73-a18d7c13ba0c",
+                    },
+                  }
+                },
+                message:{
+                  type: 'string',
+                  example: "Succesfully created Event, but couldn't save image!",
+                }
+              }
+            }
+          }
+        },
+      },
       '400' : {
         description: 'Failed to create Event',
         content: {

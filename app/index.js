@@ -83,6 +83,11 @@ async function start() {
     routes._event
   )
 
+  app.use(
+    '/search',
+    routes.search 
+  )
+
   app.listen(config.app.port || 5000, ()=> {
     console.log('Application Running on Port', config.app.port)
   })

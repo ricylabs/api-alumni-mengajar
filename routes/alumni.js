@@ -23,6 +23,15 @@ router.post(
 )
 
 router.get(
+  '/events',
+  [
+    middleware.verification.jwt,
+    middleware.verification.alumni,
+  ],
+  handler.alumni._event.listEvent
+)
+
+router.get(
   '/dashboard/upcoming-event',
   [
     middleware.verification.jwt,
@@ -38,6 +47,15 @@ router.get(
     middleware.verification.alumni,
   ],
   handler.alumni.dashboard.mostFavourableEvent
+)
+
+router.get(
+  '/dashboard/statistics',
+  [
+    middleware.verification.jwt,
+    middleware.verification.alumni,
+  ],
+  handler.alumni.dashboard.statistics
 )
 
 router.put(
