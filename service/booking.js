@@ -1,6 +1,5 @@
 const repository = require('../repository')
 
-<<<<<<< HEAD
 async function checkBooking (userId, eventId) {
     const book = await repository.booking.checkBooking(userId, eventId)
     console.log(book)
@@ -12,14 +11,11 @@ async function checkBooking (userId, eventId) {
     }
 }
 
-module.exports = {
-    checkBooking,
-=======
 async function create(data) {
   let newBooking = await repository.booking.create(data)
 }
 
 module.exports = {
-  craete,
->>>>>>> alumni
+  create,
+  checkBooking,
 }

@@ -3,11 +3,8 @@ const config = require('../config')
 const account = require('./account')
 const mahasiswa = require('./mahasiswa')
 const alumni = require('./alumni')
-<<<<<<< HEAD
 const _event = require('./event')
-=======
 const search = require('./search')
->>>>>>> alumni
 
 // Root 
 const router = require('express').Router()
@@ -30,9 +27,6 @@ module.exports = {
   account,
   mahasiswa,
   alumni,
-<<<<<<< HEAD
   _event,
-=======
   search
->>>>>>> alumni
 }
