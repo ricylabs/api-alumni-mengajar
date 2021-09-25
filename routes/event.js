@@ -18,7 +18,7 @@ router.get(
     [
         middleware.verification.jwt
     ],
-    handler.event.detailEvent
+    handler._event.detailEvent
 )
 
 module.exports = router

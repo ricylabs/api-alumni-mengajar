@@ -3,7 +3,7 @@ const config = require('../config')
 const account = require('./account')
 const mahasiswa = require('./mahasiswa')
 const alumni = require('./alumni')
-const _event = require('./_event')
+const _event = require('./event')
 
 // Root 
 const router = require('express').Router()
