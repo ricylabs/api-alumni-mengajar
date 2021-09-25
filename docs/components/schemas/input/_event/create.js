@@ -45,12 +45,14 @@ module.exports = {
       link: {
         type: 'string',
         example: 'https://zoom.us/'
+      },
+      tags: {
+        tags: 'string',
+        example: 'seminar,pendidikan'
       }
     },
     required: [
-      'image',
       'title',
-      'description',
       'date',
       'start',
       'end',

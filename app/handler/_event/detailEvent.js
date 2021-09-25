@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const { replaceOne } = require('../../../datastore/mongo/model/user')
 
 const service = require('../../../service')
 

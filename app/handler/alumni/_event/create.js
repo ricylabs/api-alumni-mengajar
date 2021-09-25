@@ -4,6 +4,7 @@ const moment = require('moment-timezone')
 
 const service = require('../../../../service')
 const helper = require('../../../../helper')
+const { tag } = require('../../../schema/input/alumni/event')
 
 module.exports = async function create(req, res) {
   const token = req.headers.authorization.split(' ')[1]
@@ -54,18 +55,19 @@ module.exports = async function create(req, res) {
     ]
 
     let tags = []
-    const requestedTags = req.body.tags.replace(/\s+/g, ' ').trim()
-    if (requestedTags.includes(',')) {
-      tags.push(...requestedTags.split(',').map((item) => item.trim()))
-    } else {
-      tags.push(requestedTags)
-    }
-
     let tagIds = []
-    for (let i = 0; i < tags.length; i++) {
-      const newTag = await service.tag.create('alumni', userId, tags[i])
-      tagIds.push(newTag.id)
-    }  
+    if (req.body.tags !== undefined) {
+      const requestedTags = req.body.tags.replace(/\s+/g, ' ').trim()
+      if (requestedTags.includes(',')) {
+        tags.push(...requestedTags.split(',').map((item) => item.trim()))
+      } else {
+        tags.push(requestedTags)
+      }
+      for (let i = 0; i < tags.length; i++) {
+        const newTag = await service.tag.create('alumni', userId, tags[i])
+        tagIds.push(newTag.id)
+      }  
+    }
 
     if (isFileExist) {
       const imageId = newEvent.image.id

@@ -55,7 +55,7 @@ const schema = new mongoose.Schema({
   },
   image: {
     type: Object,
-    required: true,
+    required: false,
   },
   userId: {
     type: String,
