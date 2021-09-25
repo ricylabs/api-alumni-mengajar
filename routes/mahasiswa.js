@@ -32,4 +32,13 @@ router.get(
   handler.mahasiswa.dashboard.eventsForYou
 )
 
+router.post(
+  'event/enroll/:eventId',
+  [
+    middleware.verification.jwt,
+    middleware.verification.mahasiswa
+  ],
+  handler.mahasiswa.booking.enroll
+)
+
 module.exports = router

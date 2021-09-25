@@ -3,6 +3,7 @@ const config = require('../config')
 const account = require('./account')
 const mahasiswa = require('./mahasiswa')
 const alumni = require('./alumni')
+const search = require('./search')
 
 // Root 
 const router = require('express').Router()
@@ -25,4 +26,5 @@ module.exports = {
   account,
   mahasiswa,
   alumni,
+  search
 }
