@@ -1,7 +1,7 @@
 const repository = require('../repository')
 
-async function create(data) {
-  let newEvent = await repository._event.create(data)
+async function create(data, isFileExist) {
+  let newEvent = await repository._event.create(data, isFileExist)
   return newEvent
 }
 

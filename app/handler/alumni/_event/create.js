@@ -34,8 +34,10 @@ module.exports = async function create(req, res) {
   }
 
   req.body.enrolled = 0
-  req.body.image = {
-    format: formatFile
+  if (isFileExist) {
+    req.body.image = {
+      format: formatFile
+    } 
   }
   req.body.date = dateTime
   delete req.body.start
@@ -44,8 +46,7 @@ module.exports = async function create(req, res) {
   _event.userId = userId
   
   try {
-    const newEvent = await service._event.create(_event)
-    const imageId = newEvent.image.id
+    const newEvent = await service._event.create(_event, isFileExist)
     const allowedFileType = [
       'image/png',
       'image/jpeg',
@@ -67,6 +68,7 @@ module.exports = async function create(req, res) {
     }  
 
     if (isFileExist) {
+      const imageId = newEvent.image.id
       if(allowedFileType.includes(file.mimetype)) {
         const image = await service._event.upload(file.buffer, `event/${imageId}.${formatFile}`)
         
